@@ -1,3 +1,4 @@
+"""Приложение Post."""
 from django.apps import AppConfig
 
 
