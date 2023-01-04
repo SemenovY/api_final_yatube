@@ -1,3 +1,4 @@
+"""Django settings for yatube project."""
 from pathlib import Path
 
 from datetime import timedelta
@@ -18,8 +19,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+
     'api',
     'posts',
+    # TODO: Решить какой вариант оставить
+    # 'posts.apps.PostsConfig',
+    # 'api.apps.ApiConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -94,6 +100,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
