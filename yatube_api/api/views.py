@@ -43,6 +43,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     """Вьюсет для модели Comment."""
     serializer_class = CommentSerializer
+    permission_classes = (AuthorOrReadOnly,)
 
     def get_queryset(self):
         """Получаем кверисет для basesname path."""
@@ -75,4 +76,5 @@ class CommentViewSet(viewsets.ModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     """Вьюсет для модели Follow."""
     serializer_class = FollowSerializer
+
 

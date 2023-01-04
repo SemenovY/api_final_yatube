@@ -40,7 +40,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class FollowSerializer(serializers.ModelSerializer):
     """Сериализатор для модели Follow."""
-    author = serializers.SlugRelatedField(
+    following = serializers.SlugRelatedField(
         read_only=True, slug_field='following'
     )
     user = serializers.SlugRelatedField(read_only=True, slug_field='follower')
@@ -48,4 +48,4 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         # TODO: fields = '__all__'
         model = Follow
-        fields = ('user', 'author')
+        fields = ('user', 'following')

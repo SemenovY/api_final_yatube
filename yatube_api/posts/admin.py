@@ -47,10 +47,10 @@ class FollowAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
         'user',
-        'author',
+        'following',
     )
     list_editable = ('user',)
-    search_fields = ('author',)
+    search_fields = ('following',)
     empty_value_display = settings.EMPTY_VALUE
 
 
