@@ -16,7 +16,7 @@ router_v1.register(r'posts/(?P<post_id>\d+)/comments', CommentViewSet,
                    basename='comment-list'
                    )
 
-router_v1.register('follow/', FollowViewSet, basename='follow-list')
+router_v1.register('follow', FollowViewSet, basename='follow-list')
 router_v1.register(
     r'profile/<str:username>/follow/',
     FollowViewSet,

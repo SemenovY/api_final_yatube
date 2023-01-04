@@ -38,6 +38,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     """Вьюсет для модели Group."""
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    permission_classes = (AuthorOrReadOnly,)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -77,4 +78,4 @@ class FollowViewSet(viewsets.ModelViewSet):
     """Вьюсет для модели Follow."""
     serializer_class = FollowSerializer
 
-
+    queryset = Follow.objects.all()
