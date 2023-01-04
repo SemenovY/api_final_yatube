@@ -19,12 +19,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-
-    'api',
-    'posts',
-    # TODO: Решить какой вариант оставить
-    # 'posts.apps.PostsConfig',
-    # 'api.apps.ApiConfig',
+    'djoser',
+    'posts.apps.PostsConfig',
+    'api.apps.ApiConfig',
 
 ]
 
@@ -100,8 +97,17 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
+
+SIMPLE_JWT = {
+    # Устанавливаем срок жизни токена
+   'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+   'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

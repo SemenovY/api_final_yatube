@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer
+from .permissions import AuthorOrReadOnly
 from posts.models import Group, Post
 
 
@@ -11,6 +12,8 @@ class PostViewSet(viewsets.ModelViewSet):
     """Вьюсет для модели Post."""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # Устанавливаем разрешение
+    permission_classes = (AuthorOrReadOnly, )
 
     def perform_create(self, serializer):
         """Получаем автора при создании."""
