@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
 
-from .serializers import CommentSerializer, GroupSerializer, PostSerializer
+from .serializers import CommentSerializer, GroupSerializer, PostSerializer, FollowSerializer
 from .permissions import AuthorOrReadOnly
-from posts.models import Group, Post
+from posts.models import Group, Post, Follow
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -70,3 +70,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         if serializer.author != self.request.user:
             raise PermissionDenied('Удаление чужого контента запрещено!')
         super().perform_destroy(serializer)
+
+
+class FollowViewSet(viewsets.ModelViewSet):
+    """Вьюсет для модели Follow."""
+    serializer_class = FollowSerializer
+

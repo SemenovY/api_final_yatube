@@ -97,3 +97,27 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Follow(models.Model):
+    """Модель для подписки."""
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='follower',
+        verbose_name='Подписчик',
+    )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='following',
+        verbose_name='Автор',
+    )
+    models.UniqueConstraint(fields=['user', 'author'], name='unique_follow')
+
+    class Meta:
+        verbose_name = 'подписчика'
+        verbose_name_plural = 'Подписки'
+
+    def __str__(self):
+        return self.user
