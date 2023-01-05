@@ -17,16 +17,6 @@ router_v1.register(r'posts/(?P<post_id>\d+)/comments', CommentViewSet,
                    )
 
 router_v1.register('follow', FollowViewSet, basename='follow-list')
-# router_v1.register(
-#     r'profile/<str:username>/follow/',
-#     FollowViewSet,
-#     basename='profile_follow-list',
-# )
-# router_v1.register(
-#     r'profile/<str:username>/unfollow/',
-#     FollowViewSet,
-#     basename='profile_unfollow-list',
-# )
 
 urlpatterns = [
     path('v1/', include(router_v1.urls), name='api-root'),
