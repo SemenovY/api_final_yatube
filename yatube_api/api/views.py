@@ -80,18 +80,12 @@ class CommentViewSet(viewsets.ModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     """Вьюсет для модели Follow."""
     permission_classes = (IsAuthenticated, )
-    queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-
     filter_backends = (filters.SearchFilter, )
     search_fields = ('following__username',)
 
-
-
-    # def get_queryset(self):
-    #     return self.request.user.follower.all()
-
-
+    def get_queryset(self):
+        return self.request.user.follower.all()
 
     def perform_create(self, serializer):
         """Получаем автора при создании."""

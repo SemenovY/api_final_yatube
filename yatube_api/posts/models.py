@@ -113,18 +113,17 @@ class Follow(models.Model):
         related_name='following',
         verbose_name='Автор',
     )
-    models.UniqueConstraint(fields=['user', 'following'], name='unique_follow')
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(
-    #             fields=['user', 'following'],
-    #             name='unique_follow'
-    #
-    #         )
-    #     ]
-    #     verbose_name = 'Подписчик'
-    #     verbose_name_plural = 'Подписчики'
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_user_following'
+
+            )
+        ]
+        verbose_name = 'Подписчик'
+        verbose_name_plural = 'Подписчики'
 
     def __str__(self):
         return self.user

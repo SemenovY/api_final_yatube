@@ -44,6 +44,12 @@ class FollowSerializer(serializers.ModelSerializer):
     user = SlugRelatedField(read_only=True, slug_field='username',
                             default=serializers.CurrentUserDefault())
 
+    def validate(self, data):
+        if data['user'] == data['following']:
+            raise serializers.ValidationError(
+                'Нельзя подписаться на самого себя!')
+        return data
+
     class Meta:
         fields = '__all__'
         model = Follow
