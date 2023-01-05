@@ -1,7 +1,9 @@
 """Viewset для работы с моделями."""
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+
+from rest_framework import viewsets, filters
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.pagination import LimitOffsetPagination
 
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer, FollowSerializer
 from .permissions import AuthorOrReadOnly
@@ -14,6 +16,7 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     # Устанавливаем разрешение
     permission_classes = (AuthorOrReadOnly, )
+    pagination_class = (LimitOffsetPagination, )
 
     def perform_create(self, serializer):
         """Получаем автора при создании."""
@@ -77,5 +80,5 @@ class CommentViewSet(viewsets.ModelViewSet):
 class FollowViewSet(viewsets.ModelViewSet):
     """Вьюсет для модели Follow."""
     serializer_class = FollowSerializer
-
+    # search_fields = ('user',)
     queryset = Follow.objects.all()
