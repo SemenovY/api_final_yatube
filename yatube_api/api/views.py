@@ -3,10 +3,10 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, filters
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.pagination import LimitOffsetPagination
 
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer, FollowSerializer
 from .permissions import AuthorOrReadOnly
+# from .pagination import PostPagination
 from posts.models import Group, Post, Follow
 
 
@@ -16,7 +16,7 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     # Устанавливаем разрешение
     permission_classes = (AuthorOrReadOnly, )
-    pagination_class = (LimitOffsetPagination, )
+    # pagination_class = (PostPagination, )
 
     def perform_create(self, serializer):
         """Получаем автора при создании."""
