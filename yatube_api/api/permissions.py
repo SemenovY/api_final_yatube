@@ -6,8 +6,7 @@ class AuthorOrReadOnly(permissions.BasePermission):
     """Проверка на входе."""
     def has_permission(self, request, view):
         """Автор или только смотреть, или создать."""
-        return (
-                request.method in permissions.SAFE_METHODS
+        return (request.method in permissions.SAFE_METHODS
                 or request.user.is_authenticated
                 )
 
