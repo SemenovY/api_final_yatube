@@ -3,8 +3,10 @@ from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 
 
-from posts.models import Comment, Post, Group, Follow
+from posts.models import Comment, Post, Group, Follow, User
 from rest_framework.validators import UniqueTogetherValidator
+
+
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -38,11 +40,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class FollowSerializer(serializers.ModelSerializer):
     """Сериализатор для модели Follow."""
-    following = SlugRelatedField(
-        read_only=True, slug_field='username'
-    )
     user = SlugRelatedField(read_only=True, slug_field='username',
                             default=serializers.CurrentUserDefault())
+
+    following = SlugRelatedField(
+        read_only=True, slug_field='username', queryset=User.objects.all(),
+    )
 
     def validate(self, data):
         if data['user'] == data['following']:
