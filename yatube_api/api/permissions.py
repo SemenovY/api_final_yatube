@@ -13,7 +13,7 @@ class AuthorOrReadOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """Проверяем совпадает ли автор поста с пользователем из запроса,
-        если да, то даем все права."""
+        если да, то даём все права."""
         return (request.method in permissions.SAFE_METHODS
                 or obj.author == request.user
                 )

@@ -1,16 +1,15 @@
 """Viewset для работы с моделями."""
 from django.shortcuts import get_object_or_404
 
-from rest_framework.exceptions import PermissionDenied
-
-from rest_framework.pagination import LimitOffsetPagination
-
 from rest_framework import filters, viewsets
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import CommentSerializer, GroupSerializer, PostSerializer, FollowSerializer
 from .permissions import AuthorOrReadOnly
 from posts.models import Group, Post, Follow
+from .serializers import CommentSerializer, GroupSerializer, \
+    PostSerializer, FollowSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -52,7 +51,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = (AuthorOrReadOnly, )
 
     def get_queryset(self):
-        """Получаем кверисет для basesname path."""
+        """Получаем кверисет для модели Comment."""
         post_id = self.kwargs.get('post_id')
         post = get_object_or_404(Post, id=post_id)
         new_queryset = post.comments.all()
@@ -87,6 +86,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     search_fields = ('following__username', )
 
     def get_queryset(self):
+        """Получаем кверисет для модели Follow."""
         return self.request.user.follower.all()
 
     def perform_create(self, serializer):

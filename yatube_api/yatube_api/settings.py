@@ -109,6 +109,5 @@ SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -43,7 +43,7 @@ class Post(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name='posts',
-        verbose_name='Автор',
+        verbose_name='Автор поста',
     )
     image = models.ImageField(
         upload_to='posts/',
@@ -118,7 +118,6 @@ class Follow(models.Model):
             models.UniqueConstraint(
                 fields=['user', 'following'],
                 name='unique_user_following'
-
             )
         ]
         verbose_name = 'Подписчик'

@@ -1,12 +1,9 @@
-"""Сериализаторы для моделей пост."""
+"""Сериализаторы для моделей Comment, Post, Group, Follow."""
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
-
-
-from posts.models import Comment, Post, Group, Follow, User
 from rest_framework.validators import UniqueTogetherValidator
 
-
+from posts.models import Comment, Post, Group, Follow, User
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -14,14 +11,16 @@ class PostSerializer(serializers.ModelSerializer):
     author = SlugRelatedField(slug_field='username', read_only=True)
 
     class Meta:
-        fields = '__all__'
+        """Поля для сериализатора укажем явно."""
         model = Post
+        fields = ('id', 'author', 'text', 'pub_date', 'image', 'group')
 
 
 class GroupSerializer(serializers.ModelSerializer):
     """Сериализатор для модели Group."""
 
     class Meta:
+        """Поля для Group укажем явно."""
         model = Group
         fields = ('id', 'title', 'slug', 'description')
 
@@ -34,8 +33,9 @@ class CommentSerializer(serializers.ModelSerializer):
     post = serializers.SlugRelatedField(read_only=True, slug_field='pk')
 
     class Meta:
-        fields = '__all__'
+        """Поля для Comment укажем явно."""
         model = Comment
+        fields = ('id', 'author', 'text', 'created', 'post')
 
 
 class FollowSerializer(serializers.ModelSerializer):
@@ -48,13 +48,15 @@ class FollowSerializer(serializers.ModelSerializer):
     )
 
     def validate(self, data):
+        """Проверка подписки на себя."""
         if self.context['request'].user == data['following']:
             raise serializers.ValidationError(
                 'Нельзя подписаться на самого себя!')
         return data
 
     class Meta:
-        fields = '__all__'
+        """Проверим на уникальность подписки на автора."""
+        fields = ('user', 'following')
         model = Follow
         validators = [
             UniqueTogetherValidator(
