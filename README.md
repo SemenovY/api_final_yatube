@@ -44,3 +44,29 @@ python manage.py createsuperuser
 ```  
 python3 manage.py runserver  
 ```  
+### Примеры:
+Получение публикаций.
+При указании параметров limit и offset выдача должна работать с пагинацией.
+```
+Get /api/v1/posts/
+```
+Создание публикации
+Добавление новой публикации в коллекцию публикаций. Анонимные запросы запрещены.
+```
+Post /api/v1/posts/
+{
+  "text": "string",
+  "image": "string",
+  "group": 0
+}
+```
+### Использованные технологии:
+ - Django  3.2.16
+ - djoser  2.1.0
+ - PyJWT  2.1.0
+ - Python 3.7.9
+### Автор:
+Семёнов Юрий
+GitHub: https://github.com/SemenovY
+e-mail: info@juriys.ru
+
